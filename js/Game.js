@@ -44,7 +44,8 @@ class Game {
     form.hide();
     
     Player.getPlayerInfo();
-    
+    player.getFinishedPlayers();
+
     if(allPlayers !== undefined){
       background(rgb(198,135,103));
       image(track, 0,-displayHeight*4,displayWidth, displayHeight*5);
@@ -86,13 +87,17 @@ class Game {
 
     }
 
-    if(keyIsDown(UP_ARROW) && player.index !== null){
+    if(keyIsDown(UP_ARROW) && player.index !== null && passedFinished!==true){
       player.distance +=10
       player.update();
     }
 
-    if(player.distance > 3860){
-      gameState = 2;
+    if(player.distance > 3490 && passedFinished === false){
+      //gameState = 2;
+      Player.updateFinishedPlayers()
+      player.rank = finishedPlayers
+      player.update()
+      passedFinished = true
     }
    
     drawSprites();
